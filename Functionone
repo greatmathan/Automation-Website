@@ -1,0 +1,52 @@
+package Automateexe;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.edge.EdgeDriver;
+
+public class Login {
+	public static void main(String[] args) {
+		WebDriver Driver=new EdgeDriver();
+		Driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+		Driver.get("https://automationexercise.com/login");
+		Driver.findElement(By.name("email")).sendKeys("mtest@gmail.com");
+		Driver.findElement(By.name("password")).sendKeys("mtest@");
+		Driver.findElement(By.xpath("//*[@id=\"form\"]/div/div/div[1]/div/form/button")).click();
+
+		String title=Driver.getTitle();
+		String veri="Automation Exercise";
+		if(title.equalsIgnoreCase(veri)) {
+			System.out.println("Title Matched");
+		}else {
+			System.out.println("Title Mis Matched");
+		}
+
+		Driver.findElement(By.xpath("/html/body/section[2]/div/div/div[2]/div[1]/div[2]/div/div[1]/div[1]/a")).click();
+
+		//view cart 
+		Driver.findElement(By.xpath("//*[@id=\"cartModal\"]/div/div/div[2]/p[2]/a/u")).click();
+
+		Driver.findElement(By.xpath("//*[@id=\"do_action\"]/div[1]/div/div/a")).click();
+		//get Address
+		WebElement check=Driver.findElement(By.xpath("//*[@id=\"address_delivery\"]"));
+		String one=check.getText();
+		System.out.println(one);
+
+		Driver.findElement(By.xpath("//*[@id=\"cart_items\"]/div/div[7]/a")).click();
+
+		//enter card 
+		Driver.findElement(By.xpath("//*[@id=\"payment-form\"]/div[1]/div/input")).sendKeys("ChanKArd");
+		Driver.findElement(By.xpath("//*[@id=\"payment-form\"]/div[2]/div/input")).sendKeys("012345678912345");
+		Driver.findElement(By.xpath("//*[@id=\"payment-form\"]/div[3]/div[1]/input")).sendKeys("012");
+		Driver.findElement(By.xpath("//*[@id=\"payment-form\"]/div[3]/div[2]/input")).sendKeys("02");
+		Driver.findElement(By.xpath("//*[@id=\"payment-form\"]/div[3]/div[3]/input")).sendKeys("1999");
+
+		Driver.findElement(By.xpath("//*[@id=\"submit\"]")).click();
+
+
+	}
+
+}
